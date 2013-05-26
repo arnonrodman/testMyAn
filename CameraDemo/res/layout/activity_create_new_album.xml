@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+              
+    <LinearLayout   android:layout_weight="1"
+    			android:gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"> 
+             
+	<GridView
+	    android:id="@+id/grid_view"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:columnWidth="90dp"
+	    android:gravity="top"
+	    android:horizontalSpacing="10dp"
+	    android:numColumns="auto_fit"
+	    android:stretchMode="columnWidth"
+	    android:verticalSpacing="10dp" >
+	</GridView>
+</LinearLayout>	
+<EditText   android:id="@+id/albumLogicalName"
+            android:layout_gravity="center_horizontal"           
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/albumLogicalName"
+            android:inputType="text"
+            android:maxLength="50" >
+            <requestFocus />
+        </EditText>
+ 
+<LinearLayout   android:layout_weight="1"
+    			android:gravity="bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">            
+    
+ <ListView   android:id="@+id/list_view"
+        	 android:layout_width="wrap_content"
+        	 android:layout_height="wrap_content" >
+ </ListView>
+ </LinearLayout>
+</LinearLayout>
