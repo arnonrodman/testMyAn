@@ -1,6 +1,7 @@
 package com.example.cameraD;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,10 +20,13 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	private String sResponse,resultImageURL;
+	private Activity sender;
 	
 	@Override
 	protected String doInBackground(String... params) {
@@ -32,7 +36,7 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 		String altitude 	= params[3];
 		String androidId 	= ( params[4]!= null ?  params[4] :String.valueOf((Math.random()*1+10)));
 		String password 	=( params[4]!= null ?  params[4] :String.valueOf((Math.random()*1+10)));
-		String email        = params[5];
+		String email        = params[5];		
 		
 		if(newAlbumName!= null){
 			try{
@@ -50,24 +54,40 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 				 HttpResponse  res = client.execute(httpPost);
 				 int statusCode = res.getStatusLine().getStatusCode();
 			     
-				 InputStream is =res.getEntity().getContent();
-			     BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);		    
-			     StringBuilder sb = new StringBuilder();
-			     String line = null;
-			     while ((line = reader.readLine()) != null) {
-			            sb.append(line + "\n");
-			     }
-			     is.close();
-			     sResponse = sb.toString();
-			        
-			     JSONObject jsonResult = new JSONObject(sResponse);
-			     if("SUCCESS".equals(jsonResult.getString("result"))){
-			    	 sResponse = jsonResult.getString("newAlbumName");
-			    	 resultImageURL = jsonResult.getString("resultImageURL");
-				 }else if("FAILED".equals(jsonResult.getString("result"))){
-					 System.out.println();
-				 }
-	  		     
+				 if(statusCode == 200){
+					 InputStream is =res.getEntity().getContent();
+				     BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);		    
+				     StringBuilder sb = new StringBuilder();
+				     String line = null;
+				     while ((line = reader.readLine()) != null) {
+				            sb.append(line + "\n");
+				     }
+				     is.close();
+				     sResponse = sb.toString();
+				        
+				     JSONObject jsonResult = new JSONObject(sResponse);
+				     if("SUCCESS".equals(jsonResult.getString("result"))){
+				    	 sResponse = jsonResult.getString("newAlbumName");
+				    	 resultImageURL = jsonResult.getString("resultImageURL");
+				    	
+				    	 //create local SD folder
+					     File localSDAlbumFolder = new File(Environment.getExternalStorageDirectory() + "/"+newAlbumName);
+					     if(!localSDAlbumFolder.exists())
+					      {
+					          if(localSDAlbumFolder.mkdir()) 
+					            {
+					             //folder is created;
+					        	 // CreateNewAlbumActivity.re
+					            }
+					      }
+					 }else if("FAILED".equals(jsonResult.getString("result"))){
+						 System.out.println();
+					 }
+				     
+				     
+				 }else{
+					 //failed connect to remote server
+				 }	  		     
 			}catch (Exception e) { 
 	 	      e.printStackTrace();       	 
 			}
@@ -91,6 +111,7 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
+		
 	}
 	
 	

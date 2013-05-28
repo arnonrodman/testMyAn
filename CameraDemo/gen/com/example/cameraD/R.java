@@ -29,27 +29,26 @@ public final class R {
         public static final int wedding=0x7f020005;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f080016;
-        public static final int action_settings=0x7f080015;
+        public static final int action_forgot_password=0x7f080015;
+        public static final int action_settings=0x7f080014;
         public static final int albumLogicalName=0x7f080002;
-        public static final int back=0x7f080013;
+        public static final int back=0x7f080012;
         public static final int backGround=0x7f080000;
         public static final int btn_Register=0x7f08000c;
         public static final int btn_login=0x7f08000a;
         public static final int buttonClick=0x7f08000e;
         public static final int createNewAlboumButtonFromUSer=0x7f080004;
-        public static final int createNewAlbum=0x7f08000f;
-        public static final int emailAddress=0x7f080010;
+        public static final int emailAddress=0x7f08000f;
         public static final int et_pw=0x7f080009;
         public static final int et_un=0x7f080008;
         public static final int grid_view=0x7f080001;
         public static final int label=0x7f080005;
         public static final int layout=0x7f080006;
         public static final int list_view=0x7f080003;
-        public static final int menu_settings=0x7f080014;
-        public static final int password=0x7f080011;
+        public static final int menu_settings=0x7f080013;
+        public static final int password=0x7f080010;
         public static final int preview=0x7f08000d;
-        public static final int register=0x7f080012;
+        public static final int register=0x7f080011;
         public static final int tv_error=0x7f08000b;
         public static final int tv_un=0x7f080007;
     }

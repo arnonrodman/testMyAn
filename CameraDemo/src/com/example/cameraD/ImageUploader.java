@@ -100,29 +100,6 @@ public class ImageUploader extends AsyncTask<String, Integer, String> {
 	    }
 	    return params;	   
 	}
-	
-//	 @Override
-//	protected void onPostExecute(Boolean result) {		
-//		super.onPostExecute(result);
-//		
-////		try {
-////			 if (sResponse != null) {	
-////		            JSONObject JResponse = new JSONObject(sResponse);
-////		            int success = JResponse.getInt("SUCCESS");
-////		            String message = JResponse.getString("MESSAGE");
-////		            if (success == 0) {	
-////		                       
-////		
-////		                    } else {	
-////		                       
-////		                    }	
-////		                }
-////				} catch (Exception e) {          
-////		
-////			    }	
-//	}
-
-
 
 	public void decodeFile(String filePath) {		 
 		   // Decode image size

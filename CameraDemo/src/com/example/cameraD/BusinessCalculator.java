@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -24,8 +23,7 @@ public class BusinessCalculator extends AsyncTask<Activity, Integer,StringBuffer
 			 URLConnection con = new URL(str).openConnection();
 	         con.connect();
 	         BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	         String line = null,element=null;
-	         StringTokenizer sToken = null;
+	         String line = null,element=null;	         
 	         
 	         while ((line = reader.readLine()) != null) {	            
 	            if(line.contains("name")){

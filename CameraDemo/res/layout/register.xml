@@ -67,5 +67,18 @@
             android:layout_column="0"
             android:layout_gravity="fill_horizontal"
             android:layout_row="5" />
+        
+        <TextView
+	        android:id="@+id/tv_error"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip"
+	        android:textSize="7pt"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@id/btn_login"
+	        android:layout_marginRight="9dip"
+	        android:layout_marginTop="15dip"
+	        android:layout_marginLeft="15dip"
+	        android:textColor="#AA0000"
+	        android:text=""/>
 
     </GridLayout>

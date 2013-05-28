@@ -31,7 +31,7 @@ public class CreateNewAlbumActivity extends Activity {
 	private Activity currentActivity;
 	private Location location;
 	private String androidId,email,gridIteamName;
-	private String businessNames,albumLogicalName,addressItem;
+	private String businessNames,albumLogicalName,addressItem,localSDAlbumFolder;
 	private List<String> business;
 	
 	@Override
@@ -121,21 +121,23 @@ public class CreateNewAlbumActivity extends Activity {
 			}
 		}
 		
-		String testUserId = (new BigInteger (130, new SecureRandom ())).toString (32); 
-		new NewAlbumAsyncTask().execute (
-					calulatedAlbumName,
-					testUserId,
-					String.valueOf (location.getLatitude ()),
-					String.valueOf (location.getAltitude ()),
-					androidId,
-					email);
-		
-		Intent startNewActivityOpen = new Intent(getApplicationContext(), CameraDemoActivity.class);
-		startNewActivityOpen.putExtra("email", email);
-		startNewActivityOpen.putExtra("newAlbumName", calulatedAlbumName);
-		startNewActivityOpen.putExtra("location",location);
-		
-		startActivityForResult(startNewActivityOpen, 0);
+		if(calulatedAlbumName!= null){
+			String testUserId = (new BigInteger (130, new SecureRandom ())).toString (32); 
+			new NewAlbumAsyncTask().execute (
+						calulatedAlbumName,
+						testUserId,
+						String.valueOf (location.getLatitude ()),
+						String.valueOf (location.getAltitude ()),
+						androidId,
+						email);
+			
+			Intent startNewActivityOpen = new Intent(getApplicationContext(), CameraDemoActivity.class);
+			startNewActivityOpen.putExtra("email", email);
+			startNewActivityOpen.putExtra("newAlbumName", calulatedAlbumName);
+			startNewActivityOpen.putExtra("location",location);
+			
+			startActivityForResult(startNewActivityOpen, 0);
+		}		
 	}
 	
 	
