@@ -33,6 +33,7 @@ public class RegisterNewUser implements ActionExecuteInterface {
 			throws ServletException, IOException {
 		
 		String emailAddress,password,androidId;
+		RegisterNewUserInfo rnui = null;
 		
 		try {
 			
@@ -42,14 +43,23 @@ public class RegisterNewUser implements ActionExecuteInterface {
 			
 			/* if email send failed what to do with user?*/
 			sendEmail("arnon.rodman1@gmail.com", emailAddress);
-					
-			CameraDao.INSTANCE.insertNewUser(androidId,emailAddress,password);
-		
-			System.out.println("register new user androidid"+androidId+" email address "+emailAddress);
+			
 			//create  new profile folder and property file for new user.
 			boolean success  = createNewProfileFolder(emailAddress.trim(),"","");
 			
-			RegisterNewUserInfo rnui = null;
+			//user folder already exists.
+			if(!success){
+				rnui = new RegisterNewUserInfo("FAILED user already exists");
+				PrintWriter out = resp.getWriter();				
+				out.println(new JSONObject(rnui));	
+				resp.flushBuffer();
+				resp.getWriter().close();
+				return ;
+			}
+				
+			CameraDao.INSTANCE.insertNewUser(androidId,emailAddress,password);			
+			
+			
 			
 			if(success)
 				rnui = new RegisterNewUserInfo("SUCCESS");
