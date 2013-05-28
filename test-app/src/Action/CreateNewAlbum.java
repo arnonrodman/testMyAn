@@ -76,7 +76,7 @@ String newAlbumName,userId,albumFolderLocation,currentDate,latitude,altitude,and
 		resp.flushBuffer();
 		resp.getWriter().close();
 	}
-	
+		
 	public String generateImagesResponseURl(String newAlbumName){
 		//retrieve "newAlbumName" images folder for album background.
 		File newAlbumNameImages = new File("c://images/"+newAlbumName);
