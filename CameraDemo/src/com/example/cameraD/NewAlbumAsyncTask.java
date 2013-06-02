@@ -26,7 +26,12 @@ import android.os.Environment;
 
 public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	private String sResponse,resultImageURL;
-	private Activity sender;
+	private Activity callerActivity;
+	
+	
+	public NewAlbumAsyncTask(Activity callerActivity){
+		this.callerActivity = callerActivity;
+	}
 	
 	@Override
 	protected String doInBackground(String... params) {
@@ -108,10 +113,10 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	}
 
 	@Override
-	protected void onPostExecute(String result) {
-		// TODO Auto-generated method stub
-		super.onPostExecute(result);
-		
+	protected void onPostExecute(String result) {	
+		super.onPostExecute(result);		
+		//activate device camera activity.
+		((CreateNewAlbumActivity)callerActivity).activateCameraDemoActivity();		
 	}
 	
 	

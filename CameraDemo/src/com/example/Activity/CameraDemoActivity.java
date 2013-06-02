@@ -41,8 +41,8 @@ public class CameraDemoActivity extends Activity {
 	   
 	    androidId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID);
 	    
-	    email = getIntent().getExtras().getString("email");
-	    newAlbumName = getIntent().getExtras().getString("newAlbumName");
+	    email = getIntent().getExtras().getString("email");	    
+	    setAlbumName(newAlbumName = getIntent().getExtras().getString("newAlbumName"));
 	    myLastLocation = (Location)getIntent().getExtras().get("location");
 	    
 	    getLocalApps();

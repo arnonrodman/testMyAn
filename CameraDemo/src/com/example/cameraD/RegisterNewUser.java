@@ -36,9 +36,9 @@ public class RegisterNewUser extends AsyncTask<String, Integer, Boolean> {
 	protected Boolean doInBackground(String... params) {
 		String password,sResponse;
 		
-		androidId = params[0];
+		androidId 	 = params[0];
 		emailAddress = params[1];
-		password = params[2];
+		password 	 = params[2];
 		
 		try {
 			 HttpParams param = new BasicHttpParams();

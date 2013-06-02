@@ -30,7 +30,7 @@ public class CreateNewAlbumActivity extends Activity {
 
 	private Activity currentActivity;
 	private Location location;
-	private String androidId,email,gridIteamName;
+	private String androidId,email,gridIteamName,calulatedAlbumName;
 	private String businessNames,albumLogicalName,addressItem,localSDAlbumFolder;
 	private List<String> business;
 	
@@ -110,7 +110,7 @@ public class CreateNewAlbumActivity extends Activity {
 	 * @throws Exception
 	 */
 	private void calcualteAlbumName()throws Exception{
-		String calulatedAlbumName = null;
+		calulatedAlbumName = null;
 		//calculate my address
 		List<Address> address = getAdress();
 		
@@ -123,24 +123,24 @@ public class CreateNewAlbumActivity extends Activity {
 		
 		if(calulatedAlbumName!= null){
 			String testUserId = (new BigInteger (130, new SecureRandom ())).toString (32); 
-			new NewAlbumAsyncTask().execute (
+			new NewAlbumAsyncTask(this).execute (
 						calulatedAlbumName,
 						testUserId,
 						String.valueOf (location.getLatitude ()),
 						String.valueOf (location.getAltitude ()),
 						androidId,
-						email);
-			
-			Intent startNewActivityOpen = new Intent(getApplicationContext(), CameraDemoActivity.class);
-			startNewActivityOpen.putExtra("email", email);
-			startNewActivityOpen.putExtra("newAlbumName", calulatedAlbumName);
-			startNewActivityOpen.putExtra("location",location);
-			
-			startActivityForResult(startNewActivityOpen, 0);
+						email);			
 		}		
 	}
 	
-	
+	public void activateCameraDemoActivity(){
+		Intent startNewActivityOpen = new Intent(getApplicationContext(), CameraDemoActivity.class);
+		startNewActivityOpen.putExtra("email", email);
+		startNewActivityOpen.putExtra("newAlbumName", calulatedAlbumName);
+		startNewActivityOpen.putExtra("location",location);
+		
+		startActivityForResult(startNewActivityOpen, 0);
+	}
 	
 	/**
 	 * Convert return BusinessCalculator address String  list into array.
