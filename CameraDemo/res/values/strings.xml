@@ -20,5 +20,6 @@
     <string name="title_activity_test_activiy">TestActiviy</string>
     <string name="title_activity_album_single_page">AlbumSinglePage</string>
 	<string name="albumBackGround">albumBackGround</string>
-    
+	<string name="Click">Click</string>
+	<string name="finish">finish</string>    
     </resources>

@@ -44,6 +44,7 @@ public class ImageUploader extends AsyncTask<String, Integer, String> {
 			 boolean tmpUser    = Boolean.valueOf(arg0[4]);			
 			 String altitude    = arg0[5];
 			 String longitude   = arg0[6];
+			 String email  		= arg0[7];
 
 			 ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			 bitmap.compress(CompressFormat.JPEG, 100, bos);
@@ -55,7 +56,7 @@ public class ImageUploader extends AsyncTask<String, Integer, String> {
 
 			 HttpClient client = new DefaultHttpClient();
 		     HttpPost httpPost = new HttpPost(CameraUtils.serverIp());
-		     InputParams inputs = new CreatePhotoInput(image64,filePath, imageId, albumName, androidId, String.valueOf(tmpUser),"createNewPhoto",altitude,longitude);     
+		     InputParams inputs = new CreatePhotoInput(image64,filePath, imageId, albumName, androidId, String.valueOf(tmpUser),"createNewPhoto",altitude,longitude,email);     
 		     JSONObject inputsJson = new JSONObject(inputs.getInputMap());		    
 			 
 		     UrlEncodedFormEntity entity = new UrlEncodedFormEntity(acivate("InputParams",inputsJson.toString()), "UTF-8");

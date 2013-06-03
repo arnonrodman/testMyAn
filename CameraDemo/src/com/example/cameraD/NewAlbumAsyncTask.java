@@ -1,10 +1,13 @@
 package com.example.cameraD;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +24,12 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Environment;
 
 public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
-	private String sResponse,resultImageURL;
+	private String sResponse,resultImageURL,userLocalAlbumeeeFolder,newAlbumName;
 	private Activity callerActivity;
 	
 	
@@ -35,13 +39,14 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	
 	@Override
 	protected String doInBackground(String... params) {
-		String newAlbumName = params[0];
+		newAlbumName = params[0];
 		String testUserId 	= params[1];
 		String latitude 	= params[2];
 		String altitude 	= params[3];
 		String androidId 	= ( params[4]!= null ?  params[4] :String.valueOf((Math.random()*1+10)));
 		String password 	=( params[4]!= null ?  params[4] :String.valueOf((Math.random()*1+10)));
 		String email        = params[5];		
+		userLocalAlbumeeeFolder = params[6];
 		
 		if(newAlbumName!= null){
 			try{
@@ -75,32 +80,47 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 				    	 sResponse = jsonResult.getString("newAlbumName");
 				    	 resultImageURL = jsonResult.getString("resultImageURL");
 				    	
-				    	 //create local SD folder
-					     File localSDAlbumFolder = new File(Environment.getExternalStorageDirectory() + "/"+newAlbumName);
+				    	 //create local newAlbumName SD folder
+					     File localSDAlbumFolder = new File(userLocalAlbumeeeFolder+"/"+newAlbumName);
 					     if(!localSDAlbumFolder.exists())
 					      {
 					          if(localSDAlbumFolder.mkdir()) 
 					            {
 					             //folder is created;
-					        	 // CreateNewAlbumActivity.re
+					        	 //load background image from resultImageURL and save it to local SD folder album.
+//					        	  if(resultImageURL != null)
+//					        		  loadImageBack(resultImageURL, userLocalAlbumeeeFolder+"/"+newAlbumName);
 					            }
 					      }
 					 }else if("FAILED".equals(jsonResult.getString("result"))){
 						 System.out.println();
+					 }else if("FAILED albume allready exsits".equals(jsonResult.getString("result"))){
+						 System.out.println();
 					 }
-				     
-				     
 				 }else{
 					 //failed connect to remote server
 				 }	  		     
 			}catch (Exception e) { 
 	 	      e.printStackTrace();       	 
 			}
-		}
-		
+		}		
 		return sResponse;
 	}
 		
+	private void loadImageBack(String imageURI,String SdLocalAlbumUserFolder) throws IOException{
+		//http://image10.bizrate-images.com/resize?sq=60&uid=2216744464
+		Bitmap background = BitmapFactory.decodeStream(new java.net.URL(imageURI).openStream());
+				
+		//save background to SD local folder
+		ByteArrayOutputStream baos= new ByteArrayOutputStream();
+		background .compress(Bitmap.CompressFormat.PNG, 100, baos);
+		byte[] data = baos.toByteArray();
+		
+	  	// Write to SD Card    	
+		FileOutputStream outStream = new FileOutputStream(userLocalAlbumeeeFolder+"/"+"/%d.jpg");	        
+	  	outStream.write(data);
+	    outStream.close();
+	}
 	
 	private List<NameValuePair> acivate( String ... paramNamesAndValues) throws IOException, ClientProtocolException {		    
 		    List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -116,9 +136,6 @@ public class NewAlbumAsyncTask extends AsyncTask<String, Integer, String> {
 	protected void onPostExecute(String result) {	
 		super.onPostExecute(result);		
 		//activate device camera activity.
-		((CreateNewAlbumActivity)callerActivity).activateCameraDemoActivity();		
+		((CreateNewAlbumActivity)callerActivity).activateCameraDemoActivity(userLocalAlbumeeeFolder+"/"+newAlbumName);		
 	}
-	
-	
-
 }

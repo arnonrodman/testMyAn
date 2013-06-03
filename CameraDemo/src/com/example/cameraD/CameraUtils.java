@@ -1,6 +1,7 @@
 package com.example.cameraD;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -134,8 +136,8 @@ public class CameraUtils {
 	}
 	
 	public static String serverIp(){
-		return "http://172.16.8.48:8080/test-app/controllerServlet";
-		//return "http://10.0.0.8/test-app/controllerServlet";
+		//return "http://172.16.8.48:8080/test-app/controllerServlet";
+		return "http://10.0.0.1/test-app/controllerServlet";
 	}
 	
 	public static Bitmap getImageByName(String name)throws Exception{
@@ -153,7 +155,6 @@ public class CameraUtils {
         String imageUrl = json.getJSONObject("responseData").getJSONArray("results").getJSONObject(0).getString("url");
         url = new URL(imageUrl);
        return  BitmapFactory.decodeStream(url.openConnection().getInputStream());	          	                 
-}
+	}
 	
-
 }

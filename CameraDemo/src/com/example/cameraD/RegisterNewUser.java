@@ -1,6 +1,7 @@
 package com.example.cameraD;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -16,9 +17,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.widget.TextView;
 
-import com.example.Activity.RegisterActivity;
 import com.example.Activity.UserProfileActivity;
 
 public class RegisterNewUser extends AsyncTask<String, Integer, Boolean> {
@@ -84,13 +85,17 @@ public class RegisterNewUser extends AsyncTask<String, Integer, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		RegisterActivity mainactivity = (RegisterActivity)sender ;
-	   // mainactivity.retunnumfromAsyncTask = result;
-	    
+		
 	    if(result){
+	    	//create local user ALBUMEEE folder
+	    	String userLocalAlbumeeeFolder = Environment.getExternalStorageDirectory().toString()+"/Albumeeee/";
+	    	File folder = new File(userLocalAlbumeeeFolder);
+	    	folder.mkdirs();
+	        
 			Intent startNewActivityOpen = new Intent(sender, UserProfileActivity.class);
 			startNewActivityOpen.putExtra("email", emailAddress);
 			startNewActivityOpen.putExtra("androidId", androidId);
+			startNewActivityOpen.putExtra("userLocalAlbumeeeFolder", userLocalAlbumeeeFolder);
 			sender.startActivityForResult(startNewActivityOpen, 0);
 		}else{			
 			TextView error=(TextView)sender.findViewById(R.id.tv_error);

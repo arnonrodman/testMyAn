@@ -9,7 +9,7 @@ public class CreatePhotoInput implements InputParams {
 	
 	
 	public CreatePhotoInput( String myImage,String filePath,String folder, 
-			String albumName,String androidId,String tmpUser,String action,String altitude,String longitude) {		 	
+			String albumName,String androidId,String tmpUser,String action,String altitude,String longitude,String email) {		 	
 			mInputMap = new HashMap<String, String>();
 			mInputMap.put("myImage", myImage);
 			mInputMap.put("filePath", filePath);
@@ -20,6 +20,7 @@ public class CreatePhotoInput implements InputParams {
 	        mInputMap.put("action", action);
 	        mInputMap.put("altitude", altitude);
 	        mInputMap.put("longitude", longitude);
+	        mInputMap.put("email", email);
 	}
 
 

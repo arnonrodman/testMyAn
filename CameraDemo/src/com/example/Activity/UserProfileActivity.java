@@ -1,13 +1,7 @@
 package com.example.Activity;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -18,11 +12,12 @@ import android.widget.Button;
 
 import com.example.cameraD.CameraUtils;
 import com.example.cameraD.CreateNewAlbumActivity;
+import com.example.cameraD.LoadAlbumSD;
 import com.example.cameraD.R;
 
 public class UserProfileActivity extends Activity {
 
-	private String email,androidId;
+	private String email,androidId,userLocalAlbumeeeFolder;
 	private Button createNewAlboumButtonFromUSer;
 	private Location location;
 	private Activity mainActiv;
@@ -35,17 +30,10 @@ public class UserProfileActivity extends Activity {
 		mainActiv = this;
 		email = getIntent().getExtras().getString("email");
 		androidId = getIntent().getExtras().getString("androidId");
+		userLocalAlbumeeeFolder = getIntent().getExtras().getString("userLocalAlbumeeeFolder");
 		
 		location = CameraUtils.getMyBestLocation(getApplicationContext());
-		List<Address> addresses = null;
-		try {
-			Geocoder geo = new Geocoder(UserProfileActivity.this.getApplicationContext(), Locale.getDefault());
-			addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 10);			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+				
 		createNewAlboumButtonFromUSer = (Button)findViewById(R.id.createNewAlboumButtonFromUSer);
 		createNewAlboumButtonFromUSer.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -79,14 +67,35 @@ public class UserProfileActivity extends Activity {
 				};
 				
 				Intent startNewActivityOpen = new Intent(mainActiv, CreateNewAlbumActivity.class);
- 				startNewActivityOpen.putExtra("email", email); 					
+ 				startNewActivityOpen.putExtra("email", email); 	
+ 				startNewActivityOpen.putExtra("userLocalAlbumeeeFolder", userLocalAlbumeeeFolder); 	
  				mainActiv.startActivityForResult(startNewActivityOpen, 0); 
 				
 			}
 		});
 	 
+		
+		//load all user albums from SD
+	}
+	
+	private void loadUserAlbum(){
+		//load album from user SD.
+		loadAlbumSD();
+		
+		//load albums from server
+		loadAlbumServer();
+	}
+	
+	private void loadAlbumSD(){
+		new LoadAlbumSD(userLocalAlbumeeeFolder).execute(params);
 	}
 
+	private void loadAlbumServer(){
+		
+	}
+
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

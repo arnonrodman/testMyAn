@@ -61,10 +61,9 @@ String newAlbumName,userId,albumFolderLocation,currentDate,latitude,altitude,and
 					resultImageURL = generateImagesResponseURl(newAlbumName);	
 					
 					CreateNewAlbumInfo cna = new CreateNewAlbumInfo("SUCCESS",newAlbumName,resultImageURL, albumFolderLocation);
-					
 					PrintWriter out = resp.getWriter();				
 					out.println(new JSONObject(cna));				
-				}else{
+				}else{	
 					PrintWriter out = resp.getWriter();										
 					out.println(new JSONObject(new CreateNewAlbumInfo("FAILED",newAlbumName,resultImageURL, albumFolderLocation)));
 				}
@@ -91,7 +90,7 @@ String newAlbumName,userId,albumFolderLocation,currentDate,latitude,altitude,and
 			newAlbumNameImages = new File("c://images/"+newAlbumName+"/"+randomImage);
 			if(newAlbumNameImages.exists()){
 				//http://localhost:8080/images/wedding/wedding1.jpg
-				responeBackgroundURL = "http://localhost:8080/images/"+newAlbumName+"/"+randomImage;
+				responeBackgroundURL = "http://localhost/images/"+newAlbumName+"/"+randomImage;
 			}
 		}
 		

@@ -35,7 +35,8 @@ public class CreateNewPhoto implements ActionExecuteInterface {
 		String localUserAlbumFolder		= null;
 		String imageToBeSaved 			= null;
 		String longitude				= null;
-		String latitude					= null;
+		String altitude					= null;
+		String email				    = null;
 		
 		try {			
 			myImage   =  inputValues.getString("myImage");
@@ -44,52 +45,40 @@ public class CreateNewPhoto implements ActionExecuteInterface {
 			albumName =  inputValues.getString("albumName");
 			androidId =  inputValues.getString("androidId");
 			longitude =  inputValues.getString("longitude");
-			latitude  =  inputValues.getString("latitude");
-			
-			//validate new user at DB.
-			boolean isNewUser = false;
+			altitude  =  inputValues.getString("altitude");
+			email     =  inputValues.getString("email");
+												
 			//load image from String to byte array.
-			localUserAlbumFolder = validteExitsUserInDBAlbume(androidId);
 			byte[] roundTrip = Base64.decodeBase64(myImage);	
 			fileContentImage = new ByteArrayInputStream(roundTrip);
 			
 			if(fileContentImage != null && imageId != null && androidId!= null){
-				 //create and save new android/user folder.
-				if(localUserAlbumFolder == null)	{	
-					localUserAlbumFolder = "C:\\deviceId"+"_"+androidId+"_"+CameraUtils.getCurentDate_dd_MM_yy();
-					isNewUser = true;
-				}
-				
-				File newFile =  new File(localUserAlbumFolder.toString());
-				newFile.mkdir();
-				newFile.setWritable(true);
-				
+				 //create and save new email/user folder.
+				localUserAlbumFolder = "C:/profiles/"+email+"/"+albumName;
+								
+				//update album property file
+								
 				//save input image into previous folder.	
-				imageToBeSaved = localUserAlbumFolder+"\\"+"_longitude"+longitude+"_latitude_"+latitude+"_"+imageId;
+				imageToBeSaved = localUserAlbumFolder+"\\"+"_longitude"+longitude+"_latitude_"+altitude+"_imageId"+imageId;
 				out = new FileOutputStream(imageToBeSaved);
 				copy(fileContentImage,out);
 				
 				out.flush();
 				out.close();				        
 			}
-			//if new user insert to DB.
-			if(isNewUser)
-				CameraDao.INSTANCE.insertNewAlbumDB(null,null,null,localUserAlbumFolder,null,null,androidId);
-			
+						
 			//activate address worker to find picture address.
-			myThreadPool.executeGoogleAddress(latitude,longitude,imageToBeSaved,localUserAlbumFolder);
+			//myThreadPool.executeGoogleAddress(altitude,longitude,imageToBeSaved,localUserAlbumFolder);
 			
 			//activate get image from address (altitude, latitude)
-			String image = myThreadPool.executeGoogleImageByAddress(longitude, latitude);
+			//String image = myThreadPool.executeGoogleImageByAddress(longitude, altitude);
 			
 			//activate google search by name.
-			image = myThreadPool.executeImageByName("image name");
+			//image = myThreadPool.executeImageByName("image name");
 			
-			CreateNewPhotoResult cna = new CreateNewPhotoResult("SUCCESS",localUserAlbumFolder,image);
+			CreateNewPhotoResult cna = new CreateNewPhotoResult("SUCCESS",localUserAlbumFolder,"image");
 			PrintWriter pw = resp.getWriter();				
 			pw.println(new JSONObject(cna));
-			
-			
 			
 		} catch (Exception e) {			
 			e.printStackTrace();
@@ -97,11 +86,7 @@ public class CreateNewPhoto implements ActionExecuteInterface {
 		}
 	}
 		
-	private String validteExitsUserInDBAlbume(String androidID){
-		return CameraDao.INSTANCE.validteExitsUserInDB(androidID);
 		
-	}
-	
 	public static long copy(InputStream input, OutputStream output) throws IOException {
 	    byte[] buffer = new byte[4096];
 

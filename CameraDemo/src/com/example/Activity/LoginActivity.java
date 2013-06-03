@@ -33,9 +33,7 @@ public class LoginActivity extends Activity {
 		pw=(EditText)findViewById(R.id.et_pw);
 		ok=(Button)findViewById(R.id.btn_login);		
 		androidId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID);
-		
-		//new BusinessCalculator().execute(this);
-		
+				
 		List<ApplicationInfo> localApplications = this.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA); 
 		StringBuffer apps = new StringBuffer(); 
 		List<String> cameraPackageName =  new ArrayList<String>();

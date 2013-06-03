@@ -31,7 +31,7 @@ public class CreateNewAlbumActivity extends Activity {
 	private Activity currentActivity;
 	private Location location;
 	private String androidId,email,gridIteamName,calulatedAlbumName;
-	private String businessNames,albumLogicalName,addressItem,localSDAlbumFolder;
+	private String businessNames,albumLogicalName,addressItem,userLocalAlbumeeeFolder;
 	private List<String> business;
 	
 	@Override
@@ -40,6 +40,8 @@ public class CreateNewAlbumActivity extends Activity {
 		setContentView(R.layout.activity_create_new_album);
 		
 		email = this.getIntent().getExtras().getString("email");
+		userLocalAlbumeeeFolder = this.getIntent().getExtras().getString("userLocalAlbumeeeFolder");
+		
 		currentActivity = this;
         GridView gridview = (GridView) findViewById (R.id.grid_view);
  
@@ -120,24 +122,26 @@ public class CreateNewAlbumActivity extends Activity {
 				calulatedAlbumName = addressItem;
 			}
 		}
-		
+				
 		if(calulatedAlbumName!= null){
 			String testUserId = (new BigInteger (130, new SecureRandom ())).toString (32); 
 			new NewAlbumAsyncTask(this).execute (
 						calulatedAlbumName,
 						testUserId,
-						String.valueOf (location.getLatitude ()),
-						String.valueOf (location.getAltitude ()),
+						String.valueOf(location.getLatitude()),
+						String.valueOf(location.getAltitude()),
 						androidId,
-						email);			
+						email,userLocalAlbumeeeFolder);			
 		}		
 	}
 	
-	public void activateCameraDemoActivity(){
+	public void activateCameraDemoActivity(String UPuserLocalAlbumeeeFolder){
 		Intent startNewActivityOpen = new Intent(getApplicationContext(), CameraDemoActivity.class);
 		startNewActivityOpen.putExtra("email", email);
 		startNewActivityOpen.putExtra("newAlbumName", calulatedAlbumName);
 		startNewActivityOpen.putExtra("location",location);
+		//Albumeee/newAlbumName
+		startNewActivityOpen.putExtra("userLocalAlbumeeeFolder",UPuserLocalAlbumeeeFolder);
 		
 		startActivityForResult(startNewActivityOpen, 0);
 	}

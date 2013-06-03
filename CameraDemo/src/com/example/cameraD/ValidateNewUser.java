@@ -1,6 +1,7 @@
 package com.example.cameraD;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,14 +23,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.widget.TextView;
 
-import com.example.Activity.CameraDemoActivity;
 import com.example.Activity.LoginActivity;
 import com.example.Activity.UserProfileActivity;
 
 public class ValidateNewUser extends AsyncTask<String, Integer,Boolean> {
-	private String email,androidId;
+	private String email,androidId,userLocalAlbumeeeFolder;
 	private  Activity sender;
 	
 	public ValidateNewUser(Activity sender){
@@ -80,6 +81,14 @@ public class ValidateNewUser extends AsyncTask<String, Integer,Boolean> {
 			    
 		     if(jsonResult!= null && "VALIDUSER".equals(jsonResult.getString("result"))){
 		    	 result = true;
+		    	 
+		    	 //validate local SD folder exists
+		    	 userLocalAlbumeeeFolder = Environment.getExternalStorageDirectory().toString()+"/Albumeeee/";
+			     File folder = new File(userLocalAlbumeeeFolder);
+			     if(!folder.exists()){
+			    	folder.mkdirs();
+			     }
+		    	 
 			 }else if((jsonResult!= null && "NOUSEREXIST".equals(jsonResult.getString("result")))
 					 	||jsonResult == null){
 				 result = false;
@@ -103,6 +112,7 @@ public class ValidateNewUser extends AsyncTask<String, Integer,Boolean> {
 			Intent startNewActivityOpen = new Intent(sender, UserProfileActivity.class);
 			startNewActivityOpen.putExtra("email", email);
 			startNewActivityOpen.putExtra("androidId", androidId);
+			startNewActivityOpen.putExtra("userLocalAlbumeeeFolder",userLocalAlbumeeeFolder );
 			sender.startActivityForResult(startNewActivityOpen, 0);
 		}else{			
 			TextView error=(TextView)sender.findViewById(R.id.tv_error);
