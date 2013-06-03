@@ -1,0 +1,110 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (classFileParser.cpp:3494), pid=5812, tid=14772
+#  Error: ShouldNotReachHere()
+#
+# JRE version: 6.0_26-b03
+# Java VM: Java HotSpot(TM) Client VM (20.1-b02 mixed mode windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00509c00):  JavaThread "Unknown thread" [_thread_in_vm, id=14772, stack(0x00270000,0x002c0000)]
+
+Stack: [0x00270000,0x002c0000],  sp=0x002bf86c,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x13379a]
+V  [jvm.dll+0x12e6fb]
+V  [jvm.dll+0x163fe]
+V  [jvm.dll+0x17c1f]
+V  [jvm.dll+0x26cc5]
+V  [jvm.dll+0x27506]
+V  [jvm.dll+0x278b5]
+V  [jvm.dll+0x27949]
+V  [jvm.dll+0x27a0c]
+V  [jvm.dll+0x27a8a]
+V  [jvm.dll+0x27b6d]
+V  [jvm.dll+0x27e39]
+V  [jvm.dll+0x6c523]
+V  [jvm.dll+0x6c8fc]
+V  [jvm.dll+0xf9d5c]
+V  [jvm.dll+0x11864b]
+V  [jvm.dll+0x9ec30]
+C  [javaw.exe+0x1657]
+C  [javaw.exe+0x1e2c]
+C  [javaw.exe+0x8644]
+C  [kernel32.dll+0x1339a]  BaseThreadInitThunk+0x12
+C  [ntdll.dll+0x39ef2]  RtlInitializeExceptionChain+0x63
+C  [ntdll.dll+0x39ec5]  RtlInitializeExceptionChain+0x36
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x00509c00 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=14772, stack(0x00270000,0x002c0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files (x86)\Java\jre6\bin\javaw.exe
+0x772e0000 - 0x77460000 	C:\Windows\SysWOW64\ntdll.dll
+0x761c0000 - 0x762d0000 	C:\Windows\syswow64\kernel32.dll
+0x75490000 - 0x754d6000 	C:\Windows\syswow64\KERNELBASE.dll
+0x76b80000 - 0x76c20000 	C:\Windows\syswow64\ADVAPI32.dll
+0x76790000 - 0x7683c000 	C:\Windows\syswow64\msvcrt.dll
+0x76b00000 - 0x76b19000 	C:\Windows\SysWOW64\sechost.dll
+0x75170000 - 0x75260000 	C:\Windows\syswow64\RPCRT4.dll
+0x74e40000 - 0x74ea0000 	C:\Windows\syswow64\SspiCli.dll
+0x74e30000 - 0x74e3c000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x76690000 - 0x76790000 	C:\Windows\syswow64\USER32.dll
+0x768d0000 - 0x76960000 	C:\Windows\syswow64\GDI32.dll
+0x74f40000 - 0x74f4a000 	C:\Windows\syswow64\LPK.dll
+0x76c20000 - 0x76cbd000 	C:\Windows\syswow64\USP10.dll
+0x74ea0000 - 0x74f00000 	C:\Windows\system32\IMM32.DLL
+0x75380000 - 0x7544c000 	C:\Windows\syswow64\MSCTF.dll
+0x7c340000 - 0x7c396000 	C:\Program Files (x86)\Java\jre6\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9f000 	C:\Program Files (x86)\Java\jre6\bin\client\jvm.dll
+0x6a990000 - 0x6a9c2000 	C:\Windows\system32\WINMM.dll
+0x73df0000 - 0x73e3c000 	C:\Windows\system32\apphelp.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Program Files (x86)\Java\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Program Files (x86)\Java\jre6\bin\java.dll
+0x74f50000 - 0x74f55000 	C:\Windows\system32\PSAPI.DLL
+0x6d370000 - 0x6d39a000 	C:\Program Files (x86)\Java\jre6\bin\jdwp.dll
+0x6d690000 - 0x6d696000 	C:\Program Files (x86)\Java\jre6\bin\npt.dll
+0x6d7e0000 - 0x6d7ef000 	C:\Program Files (x86)\Java\jre6\bin\zip.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:61345 -Dfile.encoding=Cp1255 -Xbootclasspath:C:\Program Files (x86)\Android\android-sdk\platforms\android-15\android.jar 
+java_command: com.example.cameraD.Test
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files (x86)\Java\jdk1.6.0_26
+PATH=C:/Program Files (x86)/Java/jre6/bin/client;C:/Program Files (x86)/Java/jre6/bin;C:/Program Files (x86)/Java/jre6/lib/i386;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\DMIX;C:\Program Files\Hewlett-Packard\Drive Encryption\;C:\Program Files\ActivIdentity\ActivClient\;C:\Program Files (x86)\ActivIdentity\ActivClient\;C:\Program Files\TortoiseSVN\bin;C:\php;C:\Program Files (x86)\Java\jre6\bin;C:\Program Files\apache-ant-1.8.2\bin;C:\Program Files\apache-maven-3.0.4\bin;;C:\Program Files\eclipse-jee-indigo-SR2-win32\eclipse;
+USERNAME=arnonr
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 30 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 30 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 8322344k(1791376k free), swap 16642836k(10048872k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.1-b02) for windows-x86 JRE (1.6.0_26-b03), built on May  4 2011 00:50:59 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Thu Sep 20 09:19:55 2012
+elapsed time: 0 seconds
+
