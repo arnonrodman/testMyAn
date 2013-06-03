@@ -87,7 +87,7 @@ public class UserProfileActivity extends Activity {
 	}
 	
 	private void loadAlbumSD(){
-		new LoadAlbumSD(userLocalAlbumeeeFolder).execute(params);
+		new LoadAlbumSD(userLocalAlbumeeeFolder).execute();
 	}
 
 	private void loadAlbumServer(){
